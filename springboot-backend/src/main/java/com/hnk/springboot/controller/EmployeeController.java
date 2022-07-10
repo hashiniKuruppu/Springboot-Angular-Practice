@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hnk.springboot.model.Employee;
-import com.hnk.springboot.repository.EmployeeRepository;
-
+import com.hnk.springboot.repository.EmployeeRepository ;
 
 @RestController
 @RequestMapping("/api/v1/")
@@ -18,13 +17,10 @@ public class EmployeeController {
 	@Autowired
 	private EmployeeRepository employeeRepository;
 	
-	
-	@GetMapping("/employees")
 	//get all employees
-	public List<Employee> getAllEmployees() {
-		
+	@GetMapping("/employees")
+	public List <Employee> getAllEmployees(){
 		return employeeRepository.findAll();
-		
 	}
 
 }
