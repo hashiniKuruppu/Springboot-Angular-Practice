@@ -11,7 +11,7 @@ describe('EmployeeListComponent', () => {
       declarations: [ EmployeeListComponent ]
     })
     .compileComponents();
-  });
+  }); 
 
   beforeEach(() => {
     fixture = TestBed.createComponent(EmployeeListComponent);

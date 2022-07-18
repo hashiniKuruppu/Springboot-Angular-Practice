@@ -70,6 +70,10 @@
             "production": {
               "browserTarget": "angular-frontend:build:production"
             },
+            "options": {
+              "browserTarget": "angular-frontend:build",
+              "proxyConfig": "src/proxy.conf.json"
+            },
             "development": {
               "browserTarget": "angular-frontend:build:development"
             }
@@ -104,3 +108,4 @@
   },
   "defaultProject": "angular-frontend"
 }
+
