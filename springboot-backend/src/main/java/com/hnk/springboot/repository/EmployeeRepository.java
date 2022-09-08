@@ -7,5 +7,9 @@ import com.hnk.springboot.model.Employee;
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
+	
+	public Employee findByFirstName(String firstName);
 
+	public Employee findByLastName(String firstName);
+	
 }
