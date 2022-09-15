@@ -1,0 +1,32 @@
+<div class="col-md-6 offset-md-3"> 
+    <h3>Update Employee</h3>
+
+    <!--we use ngSubmit event to listen on submition-->
+    <form (ngSubmit) = "onSubmit()"> 
+
+        <!--properties of employee class we are using are in [(ngModel)] = "employee.firstName"-->
+        <div class="form-group">
+            <label>First Name</label>
+            <input type="text" class="form-control" id = "firstName"
+                [(ngModel)] = "employee.firstName" name = "firstName">
+        </div>
+        <br>
+
+        <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" class="form-control" id = "lastName"
+                [(ngModel)] = "employee.lastName" name = "lastName">
+        </div>
+        <br>
+
+        <div class="form-group">
+            <label>Email</label>
+            <input type="text" class="form-control" id = "emailId"
+                [(ngModel)] = "employee.emailId" name = "emailId">
+        </div>
+        <br>
+
+        <button class = "btn btn-success" type = "submit">Update</button>
+
+    </form>
+</div>
