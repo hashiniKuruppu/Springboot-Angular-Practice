@@ -14,7 +14,8 @@ export class UpdateEmployeeComponent implements OnInit {
   employee: Employee = new Employee();
 
   constructor(private employeeService: EmployeeService, 
-    private route: ActivatedRoute, private router: Router) { }
+    private route: ActivatedRoute, 
+    private router: Router) { }
 
   ngOnInit(): void {
     //here in the getEmployeeByiD method we need to pass id parameter 
@@ -25,23 +26,17 @@ export class UpdateEmployeeComponent implements OnInit {
       this.employee = data;
     }, error => console.log(error)) ;
   }
-
+  
   onSubmit() {
-    console.log(this.employee);
-    this.saveEmployee(); 
+    this.employeeService.updateEmployee(this.id, this.employee).subscribe(data => {
+        this.gotoEmployeeList();
+      },
+    error => console.log(error));
   }
 
-  saveEmployee() {
-    this.employeeService.createEmployee(this.employee).subscribe (data => {
-      console.log(data); //print data if success
-      this.gotoEmployeeList();
-    },
-    error => console.log(error)); //print error
+  //when we submit employee data successfully we have to be able to go to  employee list page
+  gotoEmployeeList() {
+    this.router.navigate(['/employees']);
   }
-
-    //when we submit employee data successfully we have to be able to go to  employee list page
-    gotoEmployeeList() {
-      this.router.navigate(['/employees']);
-    }
 
 }
