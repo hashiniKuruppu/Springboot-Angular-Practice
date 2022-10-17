@@ -15,7 +15,8 @@ export class EmployeeDetailsComponent implements OnInit {
     id: 0,
     firstName: '',
     lastName: '',
-    emailId: ''
+    emailId: '',
+    password: ''
   }
 
   constructor(private route: ActivatedRoute, 
