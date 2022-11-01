@@ -4,7 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+//import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+//import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,8 +17,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hnk.springboot.exception.EmployeeServiceException;
 import com.hnk.springboot.exception.ResourceNotFoundException;
 import com.hnk.springboot.model.Employee;
 import com.hnk.springboot.repository.EmployeeRepository ;
@@ -33,18 +38,20 @@ public class EmployeeController {
 	public List <Employee> getAllEmployees(){
 		return employeeRepository.findAll();
 	}
-	
-	
-//	@GetMapping("/employees/firstName/{firstName}")
-//	public Employee getByFirstName(@PathVariable String firstName){
-//		 return employeeRepository.findByFirstName(firstName);	
-//	}
 
 	
 	//create employee rest api
 	@PostMapping("/employees")
-	public Employee createEmployee(@RequestBody Employee employee) {
-		return employeeRepository.save(employee);
+	public Employee createEmployee(@RequestBody Employee employee) throws EmployeeServiceException {
+		
+		try {
+			return employeeRepository.save(employee);
+		}
+		catch(DataIntegrityViolationException e) {
+		
+			throw new EmployeeServiceException("1002", "employee already exists");
+		}
+		
 	}
 	
 	
@@ -69,6 +76,7 @@ public class EmployeeController {
 		
 		employee.setFirstName(employeeDetails.getFirstName());
 		employee.setLastName(employeeDetails.getLastName());
+		employee.setUserName(employeeDetails.getUserName());
 		employee.setEmailId(employeeDetails.getEmailId());
 		
 		Employee updatedEmployee = employeeRepository.save(employee);
@@ -90,5 +98,18 @@ public class EmployeeController {
 		return ResponseEntity.ok(response);
 	}
 	
+	//login
+	@GetMapping("/employees/login")
+	public ResponseEntity<Employee> employeeLogin(@RequestParam String emailId, String password, @RequestBody Employee employee) throws EmployeeServiceException {
+		
+		try {
+			Employee emp = employeeRepository.findByEmail(emailId);
+			return ResponseEntity.ok(emp);
+		}
+		catch (ResourceNotFoundException e) {
+			throw new EmployeeServiceException("404", "Employee with email "+emailId+" does not exist.");
+		}
+		
+	}
 	
 }
