@@ -4,10 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-//import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-//import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,6 +22,7 @@ import com.hnk.springboot.exception.EmployeeServiceException;
 import com.hnk.springboot.exception.ResourceNotFoundException;
 import com.hnk.springboot.model.Employee;
 import com.hnk.springboot.repository.EmployeeRepository ;
+import com.hnk.springboot.service.EmployeeService;
 
 @RestController
 @RequestMapping("/api/v1/")
@@ -44,13 +43,7 @@ public class EmployeeController {
 	@PostMapping("/employees")
 	public Employee createEmployee(@RequestBody Employee employee) throws EmployeeServiceException {
 		
-		try {
-			return employeeRepository.save(employee);
-		}
-		catch(DataIntegrityViolationException e) {
-		
-			throw new EmployeeServiceException("1002", "employee already exists");
-		}
+		return EmployeeService.saveEmployee(employee);
 		
 	}
 	

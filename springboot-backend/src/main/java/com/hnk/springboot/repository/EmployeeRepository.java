@@ -10,12 +10,12 @@ import com.hnk.springboot.model.Employee;
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 	
-	public Employee findByFirstName(String firstName);
+	Employee findByFirstName(String firstName);
 
-	public Employee findByLastName(String lastName);
+	Employee findByLastName(String lastName);
 	
 	@Query("SELECT e FROM Employee e WHERE e.emailId = :email")
-	public Employee findByEmail(@Param ("email") String email);
+	Employee findByEmail(@Param ("email") String email);
 	
 }
 
