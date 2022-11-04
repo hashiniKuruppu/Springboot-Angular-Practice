@@ -31,6 +31,8 @@ public class EmployeeController {
 	
 	@Autowired
 	private EmployeeRepository employeeRepository;
+	@Autowired
+	private EmployeeService employeeService;
 	
 	//get all employees
 	@GetMapping("/employees")
@@ -43,7 +45,7 @@ public class EmployeeController {
 	@PostMapping("/employees")
 	public Employee createEmployee(@RequestBody Employee employee) throws EmployeeServiceException {
 		
-		return EmployeeService.saveEmployee(employee);
+		return employeeService.saveEmployee(employee);
 		
 	}
 	
@@ -93,15 +95,14 @@ public class EmployeeController {
 	
 	//login
 	@GetMapping("/employees/login")
-	public ResponseEntity<Employee> employeeLogin(@RequestParam String emailId, String password, @RequestBody Employee employee) throws EmployeeServiceException {
+	public ResponseEntity<String> employeeLogin(@RequestParam String emailId, String password, @RequestBody Employee employee) throws EmployeeServiceException {
 		
-		try {
-			Employee emp = employeeRepository.findByEmail(emailId);
-			return ResponseEntity.ok(emp);
+		Employee emp = employeeService.getEmployeeByEmail(emailId, password);
+		if (password.equals(emp.getPassword())) {
+			return ResponseEntity.ok("successful login");
 		}
-		catch (ResourceNotFoundException e) {
-			throw new EmployeeServiceException("404", "Employee with email "+emailId+" does not exist.");
-		}
+		return ResponseEntity.badRequest().body("login denied");
+		
 		
 	}
 	

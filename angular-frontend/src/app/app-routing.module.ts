@@ -13,6 +13,7 @@ const routes: Routes = [
   {path: '', redirectTo: 'employees', pathMatch: 'full'}, 
   {path: 'update-employee/:id', component: UpdateEmployeeComponent},
   {path: 'employee-details/:id', component: EmployeeDetailsComponent}
+  //{path: 'login', component: EmployeeDetailsComponent}
 ];
 
 

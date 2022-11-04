@@ -1,15 +1,14 @@
 package com.hnk.springboot.service;
 
+import org.springframework.http.ResponseEntity;
+
 import com.hnk.springboot.exception.EmployeeServiceException;
 import com.hnk.springboot.model.Employee;
 
 public interface EmployeeService {
 	
-	static Employee saveEmployee(Employee employee) throws EmployeeServiceException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	Employee saveEmployee(Employee employee) throws EmployeeServiceException;
 	
-	Employee getEmployeeByEmail (String emailId, String password);
+	Employee getEmployeeByEmail (String emailId, String password) throws EmployeeServiceException;
 
 }
