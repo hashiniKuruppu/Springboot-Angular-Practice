@@ -18,23 +18,32 @@ public class Employee {
 	@Column(name="first_name")
 	private String firstName;
 	
-	@Column(name="Last_name")
+	@Column(name="last_name")
 	private String lastName;
-	
+
+	@Column(name="user_name", unique=true)
+	private String userName;
+
 	@Column(name="email_id")
 	private String emailId;
+	
+	@Column(name="password")
+	private String password;
+	
 	
 	private Employee() {
 		
 	}
 	
-	public Employee(String firstName, String lastName, String emailId) {
+	public Employee(String firstName, String lastName, String userName, String emailId, String password) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.userName = userName;
 		this.emailId = emailId;
+		this.password = password;
 	}
-	
+
 	public long getId() {
 		return id;
 	}
@@ -58,12 +67,28 @@ public class Employee {
 		this.lastName = lastName;
 	}
 	
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String username) {
+		this.userName = username;
+	}
+	
 	public String getEmailId() {
 		return emailId;
 	}
 	
 	public void setEmailId(String emailId) {
 		this.emailId = emailId;
+	}
+	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 }
